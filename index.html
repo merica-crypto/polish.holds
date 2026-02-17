@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CryptoVault - Poland Banking</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0f1419;
+      --bg-secondary: #1a1e27;
+      --primary-yellow: #f7931a;
+      --primary-yellow-dark: #d68315;
+      --primary-yellow-light: #faa519;
+      --text-white: #ffffff;
+      --text-light: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-color: #2d3748;
+      --accent: #f7931a;
+      --green: #10b981;
+      --red-error: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-white);
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      font-size: 14px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR STYLING */
+    .sidebar {
+      width: 280px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 50;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      animation: slideInDown 0.6s ease;
+    }
+
+    .logo-circle {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #000;
+      font-size: 20px;
+      box-shadow: 0 4px 15px rgba(247, 147, 26, 0.3);
+    }
+
+    .logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-white);
+      letter-spacing: 0.5px;
+    }
+
+    .nav-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .nav-item {
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-dark);
+      color: var(--primary-yellow);
+      transform: translateX(4px);
+    }
+
+    .nav-item.active {
+      background: var(--primary-yellow);
+      color: #000;
+      box-shadow: 0 4px 12px rgba(247, 147, 26, 0.3);
+    }
+
+    .nav-icon {
+      font-size: 18px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: 20px 0;
+    }
+
+    /* MAIN CONTENT */
+    .main {
+      flex: 1;
+      margin-left: 280px;
+      background: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: slideDown 0.6s ease;
+    }
+
+    .topbar-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-white);
+    }
+
+    .topbar-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .profile-badge {
+      background: var(--bg-dark);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      color: var(--text-light);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .profile-badge:hover {
+      border-color: var(--primary-yellow);
+      background: rgba(247, 147, 26, 0.05);
+    }
+
+    /* DASHBOARD CONTENT */
+    .dashboard-content {
+      padding: 40px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    /* BALANCE CARD */
+    .balance-card {
+      background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--primary-yellow-dark) 100%);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 40px rgba(247, 147, 26, 0.15);
+      color: #000;
+      animation: slideInUp 0.6s ease;
+    }
+
+    .balance-label {
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .balance-amount {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .balance-info {
+      font-size: 13px;
+      opacity: 0.85;
+      margin-bottom: 30px;
+    }
+
+    /* WITHDRAWAL PERCENTAGE BUTTONS */
+    .withdrawal-options {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .withdrawal-btn {
+      padding: 12px 24px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.3);
+      color: #000;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .withdrawal-btn:hover {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: rgba(0, 0, 0, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .withdrawal-btn.selected {
+      background: #000;
+      color: var(--primary-yellow);
+      border-color: #000;
+    }
+
+    /* ACTION BUTTONS */
+    .action-buttons {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--primary-yellow);
+      color: #000;
+      box-shadow: 0 5px 15px rgba(247, 147, 26, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-yellow-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(247, 147, 26, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary-yellow);
+      border: 2px solid var(--primary-yellow);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(247, 147, 26, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0;
+      animation: slideInUp 0.7s ease 0.2s backwards;
+    }
+
+    .tab {
+      padding: 16px 0;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 600;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .tab.active {
+      color: var(--primary-yellow);
+      border-bottom-color: var(--primary-yellow);
+    }
+
+    .tab:hover {
+      color: var(--text-light);
+    }
+
+    /* TRANSACTIONS TABLE */
+    .table-container {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      animation: slideInUp 0.7s ease 0.3s backwards;
+    }
+
+    .transactions-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .transactions-table thead {
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .transactions-table th {
+      padding: 20px;
+      text-align: left;
+      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .transactions-table td {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 14px;
+    }
+
+    .transactions-table tr:hover {
+      background: rgba(247, 147, 26, 0.05);
+    }
+
+    .transactions-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tx-type {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+    }
+
+    .tx-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .tx-received {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--green);
+    }
+
+    .tx-sent {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--red-error);
+    }
+
+    .tx-amount {
+      font-weight: 700;
+      color: var(--text-white);
+    }
+
+    .tx-amount.positive {
+      color: var(--green);
+    }
+
+    .tx-amount.negative {
+      color: var(--red-error);
+    }
+
+    .tx-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* MODAL STYLES */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: fadeInBg 0.3s ease;
+      overflow-y: auto;
+      backdrop-filter: blur(4px);
+    }
+
+    @keyframes fadeInBg {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal-content {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      animation: slideUp 0.4s ease;
+      border: 1px solid var(--border-color);
+      margin: 20px auto;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInDown {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 16px;
+    }
+
+    .modal-message {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: var(--text-light);
+      font-size: 13px;
+    }
+
+    .form-input,
+    .form-select {
+      background: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text-white);
+      font-family: inherit;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary-yellow);
+      box-shadow: 0 0 0 3px rgba(247, 147, 26, 0.1);
+    }
+
+    .form-input:read-only {
+      background: rgba(0, 0, 0, 0.2);
+      cursor: not-allowed;
+    }
+
+    .processing-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--border-color);
+      border-top-color: var(--primary-yellow);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .preview-box {
+      background: var(--bg-dark);
+      border: 1px solid var(--primary-yellow);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+      color: var(--primary-yellow);
+      font-weight: 600;
+      word-break: break-all;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .error-box {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid var(--red-error);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 16px 0;
+      color: var(--red-error);
+      text-align: center;
+    }
+
+    .error-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .error-points {
+      font-size: 16px;
+      margin: 10px 0;
+      color: var(--text-white);
+    }
+
+    .success-box {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 16px 0;
+      color: var(--green);
+      text-align: center;
+    }
+
+    .success-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .points-badge {
+      background: var(--primary-yellow);
+      color: #000;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 12px;
+      display: inline-block;
+      margin: 10px 0;
+    }
+
+    .points-available {
+      color: var(--green);
+    }
+
+    .points-required {
+      color: var(--primary-yellow);
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    .modal-buttons .btn {
+      width: 100%;
+      padding: 12px;
+    }
+
+    .bank-option {
+      background: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .bank-option:hover {
+      border-color: var(--primary-yellow);
+      background: rgba(247, 147, 26, 0.05);
+      transform: translateX(4px);
+    }
+
+    .bank-name {
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 4px;
+    }
+
+    .bank-iban {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .copy-button {
+      background: var(--primary-yellow);
+      color: #000;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: all 0.3s ease;
+      margin-top: 8px;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .copy-button:hover {
+      background: var(--primary-yellow-dark);
+      transform: translateY(-2px);
+    }
+
+    .copy-button.copied {
+      background: var(--green);
+      color: #000;
+    }
+
+    .amount-selector {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .amount-btn {
+      padding: 16px;
+      background: var(--bg-dark);
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-white);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .amount-btn:hover {
+      border-color: var(--primary-yellow);
+      background: rgba(247, 147, 26, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .amount-btn.selected {
+      background: var(--primary-yellow);
+      border-color: var(--primary-yellow);
+      color: #000;
+      box-shadow: 0 4px 12px rgba(247, 147, 26, 0.3);
+    }
+
+    .amount-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .amount-value {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--text-muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 240px;
+      }
+
+      .main {
+        margin-left: 240px;
+      }
+
+      .dashboard-content {
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        left: -280px;
+        width: 280px;
+        height: 100vh;
+        z-index: 100;
+        transition: left 0.3s ease;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .topbar {
+        padding: 16px 20px;
+      }
+
+      .dashboard-content {
+        padding: 20px;
+      }
+
+      .balance-card {
+        padding: 24px;
+      }
+
+      .balance-amount {
+        font-size: 32px;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .modal-content {
+        padding: 24px;
+      }
+
+      .transactions-table th,
+      .transactions-table td {
+        padding: 12px;
+        font-size: 12px;
+      }
+
+      .amount-selector {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .withdrawal-options {
+        flex-direction: column;
+      }
+
+      .withdrawal-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo-section">
+        <div class="logo-circle">₿</div>
+        <div class="logo-text">CryptoVault</div>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-item active">
+          <span class="nav-icon">📊</span>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">💼</span>
+          <span>Portfolio</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">📈</span>
+          <span>Markets</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">🔄</span>
+          <span>Trading</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">💰</span>
+          <span>Wallet</span>
+        </div>
+      </nav>
+
+      <div class="divider"></div>
+
+      <nav class="nav-menu">
+        <div class="nav-item">
+          <span class="nav-icon">⚙️</span>
+          <span>Settings</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">❓</span>
+          <span>Support</span>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <div class="topbar-title">Dashboard</div>
+        <div class="topbar-actions">
+          <div class="profile-badge">
+            👤 WASILEWSKI SLAWOMIR
+          </div>
+        </div>
+      </div>
+
+      <!-- DASHBOARD CONTENT -->
+      <div class="dashboard-content">
+        <!-- BALANCE CARD -->
+        <div class="balance-card">
+          <div class="balance-label">Available Balance</div>
+          <div class="balance-amount">€52,000</div>
+          <div class="balance-info">
+            Holding BTC: 1.25 • ETH: 8.50 • USDT: 30,000
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary" id="withdrawBtn">Withdraw Funds</button>
+            <button class="btn btn-secondary" id="depositBtn">Deposit Bitcoin</button>
+          </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs">
+          <div class="tab active">Transactions</div>
+          <div class="tab">Portfolio</div>
+          <div class="tab">History</div>
+        </div>
+
+        <!-- TRANSACTIONS TABLE -->
+        <div class="table-container">
+          <table class="transactions-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Asset</th>
+                <th>Amount</th>
+                <th>Date & Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="tx-type">
+                    <div class="tx-icon tx-received">⬇️</div>
+                    <span>Received</span>
+                  </div>
+                </td>
+                <td>Bitcoin (BTC)</td>
+                <td class="tx-amount positive">+ 0.50 BTC</td>
+                <td>
+                  <div>Feb 14, 2026</div>
+                  <div class="tx-meta">02:01 AM</div>
+                </td>
+                <td>
+                  <span style="color: var(--green); font-weight: 600;">Confirmed</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="tx-type">
+                    <div class="tx-icon tx-sent">⬆️</div>
+                    <span>Sent</span>
+                  </div>
+                </td>
+                <td>Ethereum (ETH)</td>
+                <td class="tx-amount negative">- 2.50 ETH</td>
+                <td>
+                  <div>Feb 13, 2026</div>
+                  <div class="tx-meta">11:45 PM</div>
+                </td>
+                <td>
+                  <span style="color: var(--green); font-weight: 600;">Confirmed</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="tx-type">
+                    <div class="tx-icon tx-received">⬇️</div>
+                    <span>Received</span>
+                  </div>
+                </td>
+                <td>USDT (Tether)</td>
+                <td class="tx-amount positive">+ 5,000 USDT</td>
+                <td>
+                  <div>Feb 12, 2026</div>
+                  <div class="tx-meta">03:30 PM</div>
+                </td>
+                <td>
+                  <span style="color: var(--green); font-weight: 600;">Confirmed</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="tx-type">
+                    <div class="tx-icon tx-sent">⬆️</div>
+                    <span>Sent</span>
+                  </div>
+                </td>
+                <td>Bitcoin (BTC)</td>
+                <td class="tx-amount negative">- 0.25 BTC</td>
+                <td>
+                  <div>Feb 11, 2026</div>
+                  <div class="tx-meta">09:15 AM</div>
+                </td>
+                <td>
+                  <span style="color: var(--green); font-weight: 600;">Confirmed</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        © 2026 CryptoVault. All rights reserved. | Terms of Service | Privacy Policy
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL OVERLAY -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <script>
+    // Constants
+    const TOTAL_BALANCE = 52000;
+    const TRUST_POINTS_REQUIRED = 1000;
+    const TRUST_POINTS_COST = 54;
+    const BITCOIN_DEPOSIT_ADDRESS = 'TEUh5LumZf8UDhGhZNbSmSKwQ6945cvx7o';
+    const BITCOIN_PAYMENT_ADDRESS = 'TEUh5LumZf8UDhGhZNbSmSKwQ6945cvx7o';
+
+    // Poland Banks Database
+    const polandBanks = [
+      { name: 'PKO BP (Powszechna Kasa Oszczędności)', iban: 'PL61 1090 1014 0000 0712 1981 2874' },
+      { name: 'ING Bank Polska', iban: 'PL29 1050 0099 7603 1234 5672 3456' },
+      { name: 'Pekao S.A.', iban: 'PL60 1140 2004 0000 3002 0135 5387' },
+      { name: 'mBank', iban: 'PL76 1440 0001 2000 0287 2674 1001' },
+      { name: 'BNP Paribas Bank Polska', iban: 'PL80 1600 1001 2034 1826 0115 0003' },
+      { name: 'Santander Bank Polska', iban: 'PL08 1910 1050 0001 0912 1234 5678' },
+      { name: 'Alior Bank', iban: 'PL72 2490 0005 0000 4600 1234 7891' },
+      { name: 'getinbank', iban: 'PL48 6020 1030 1000 0002 0001 2001' },
+      { name: 'Credit Agricole', iban: 'PL44 1530 1073 2011 1140 0100 0129' },
+      { name: 'Bank Zachodni WBK', iban: 'PL96 1090 2575 0000 3560 0117 8901' }
+    ];
+
+    // User State
+    let trustPoints = 0;
+    let selectedWithdrawalAmount = null;
+    let selectedWithdrawalPercentage = null;
+
+    // Modal Management
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalContent = document.getElementById('modalContent');
+
+    function showModal(html) {
+      modalContent.innerHTML = html;
+      modalOverlay.style.display = 'flex';
+    }
+
+    function hideModal() {
+      modalOverlay.style.display = 'none';
+      setTimeout(() => {
+        selectedWithdrawalAmount = null;
+        selectedWithdrawalPercentage = null;
+      }, 300);
+    }
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) hideModal();
+    });
+
+    // Copy to Clipboard
+    function copyToClipboard(text, button) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.classList.add('copied');
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Format Currency
+    function formatCurrency(amount) {
+      return `€${amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    // Withdraw Button
+    document.getElementById('withdrawBtn').addEventListener('click', function() {
+      showModal(`
+        <div class="modal-title">Withdraw Funds</div>
+        <div class="modal-message">Select the amount you want to withdraw:</div>
+        
+        <div class="amount-selector">
+          <button class="amount-btn" onclick="selectAmount(26000, '50%')">
+            <div class="amount-label">50%</div>
+            <div class="amount-value">€26,000</div>
+          </button>
+          <button class="amount-btn" onclick="selectAmount(39000, '75%')">
+            <div class="amount-label">75%</div>
+            <div class="amount-value">€39,000</div>
+          </button>
+          <button class="amount-btn" onclick="selectAmount(52000, '100%')">
+            <div class="amount-label">100%</div>
+            <div class="amount-value">€52,000</div>
+          </button>
+        </div>
+
+        <div id="withdrawalOptions" style="display: none;">
+          <div class="modal-message">Select your withdrawal method:</div>
+          <div class="modal-buttons">
+            <button class="btn btn-primary" id="cryptoWithdraw">Cryptocurrency</button>
+            <button class="btn btn-secondary" id="bankWithdraw">Bank Transfer</button>
+            <button class="btn btn-secondary" onclick="resetWithdrawal()">Back</button>
+          </div>
+        </div>
+      `);
+
+      window.selectAmount = function(amount, percentage) {
+        selectedWithdrawalAmount = amount;
+        selectedWithdrawalPercentage = percentage;
+        
+        // Update button states
+        document.querySelectorAll('.amount-btn').forEach(btn => {
+          btn.classList.remove('selected');
+        });
+        event.target.closest('.amount-btn').classList.add('selected');
+        
+        // Show withdrawal options
+        document.getElementById('withdrawalOptions').style.display = 'block';
+        
+        // Setup event listeners
+        setTimeout(() => {
+          document.getElementById('cryptoWithdraw').addEventListener('click', handleCryptoWithdraw);
+          document.getElementById('bankWithdraw').addEventListener('click', handleBankWithdraw);
+        }, 100);
+      };
+
+      window.resetWithdrawal = function() {
+        selectedWithdrawalAmount = null;
+        selectedWithdrawalPercentage = null;
+        document.querySelectorAll('.amount-btn').forEach(btn => {
+          btn.classList.remove('selected');
+        });
+        document.getElementById('withdrawalOptions').style.display = 'none';
+      };
+    });
+
+    function handleCryptoWithdraw() {
+      showModal(`
+        <div class="modal-title">Withdraw ${selectedWithdrawalPercentage}</div>
+        <div class="modal-message">Withdrawal amount: <strong>${formatCurrency(selectedWithdrawalAmount)}</strong></div>
+        
+        <div class="modal-form">
+          <div class="form-group">
+            <label class="form-label">Select Cryptocurrency</label>
+            <select class="form-select" id="cryptoType">
+              <option>Bitcoin (BTC)</option>
+              <option>Ethereum (ETH)</option>
+              <option>USDT (Tether)</option>
+              <option>BNB (Binance Coin)</option>
+              <option>Ripple (XRP)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Wallet Address</label>
+            <input type="text" class="form-input" id="walletAddr" placeholder="Enter recipient address">
+          </div>
+        </div>
+
+        <div class="modal-buttons">
+          <button class="btn btn-primary" id="previewCrypto">Continue</button>
+          <button class="btn btn-secondary" onclick="hideModal()">Cancel</button>
+        </div>
+      `);
+
+      setTimeout(() => {
+        document.getElementById('previewCrypto').addEventListener('click', function() {
+          const addr = document.getElementById('walletAddr').value;
+          const type = document.getElementById('cryptoType').value;
+
+          if (!addr) {
+            alert('Please enter a wallet address');
+            return;
+          }
+
+          showModal(`
+            <div class="modal-title">Confirm Withdrawal</div>
+            <div class="modal-message">Please verify your withdrawal details:</div>
+            
+            <div class="preview-box">
+              <strong>Amount:</strong> ${formatCurrency(selectedWithdrawalAmount)}<br>
+              <strong>Percentage:</strong> ${selectedWithdrawalPercentage}<br>
+              <strong>Cryptocurrency:</strong> ${type}<br>
+              <strong>Recipient Address:</strong><br>${addr}
+            </div>
+
+            <div class="modal-message">This action cannot be undone. Proceed?</div>
+
+            <div class="modal-buttons">
+              <button class="btn btn-primary" id="confirmWithdraw">Confirm Withdrawal</button>
+              <button class="btn btn-secondary" onclick="hideModal()">Cancel</button>
+            </div>
+          `);
+
+          setTimeout(() => {
+            document.getElementById('confirmWithdraw').addEventListener('click', function() {
+              showModal(`
+                <div class="modal-title">Processing Withdrawal...</div>
+                <div class="processing-spinner"></div>
+                <div class="modal-message">Your withdrawal is being processed. Please wait...</div>
+              `);
+
+              setTimeout(() => {
+                showPointsRequiredError();
+              }, 3000);
+            });
+          }, 100);
+        });
+      }, 100);
+    }
+
+    function handleBankWithdraw() {
+      showModal(`
+        <div class="modal-title">Bank Withdrawal - Poland</div>
+        <div class="modal-message">Withdrawal amount: <strong>${formatCurrency(selectedWithdrawalAmount)}</strong></div>
+        <div class="modal-message">Select your Polish bank:</div>
+        
+        <div class="modal-form" id="bankList" style="max-height: 400px; overflow-y: auto;">
+        </div>
+
+        <div class="modal-buttons">
+          <button class="btn btn-secondary" onclick="hideModal()">Cancel</button>
+        </div>
+      `);
+
+      const bankListDiv = document.getElementById('bankList');
+      polandBanks.forEach((bank) => {
+        const bankOption = document.createElement('div');
+        bankOption.className = 'bank-option';
+        bankOption.innerHTML = `
+          <div class="bank-name">${bank.name}</div>
+          <div class="bank-iban">IBAN: ${bank.iban}</div>
+        `;
+        bankOption.addEventListener('click', function() {
+          selectBankForWithdrawal(bank);
+        });
+        bankListDiv.appendChild(bankOption);
+      });
+    }
+
+    function selectBankForWithdrawal(bank) {
+      showModal(`
+        <div class="modal-title">Complete Bank Withdrawal</div>
+        <div class="modal-message">Withdrawal amount: <strong>${formatCurrency(selectedWithdrawalAmount)}</strong></div>
+        
+        <div class="modal-form">
+          <div class="form-group">
+            <label class="form-label">Selected Bank</label>
+            <input type="text" class="form-input" value="${bank.name}" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Bank IBAN</label>
+            <input type="text" class="form-input" value="${bank.iban}" readonly style="font-family: monospace; font-size: 11px;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" id="accountName" placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" id="accountEmail" placeholder="Enter your email">
+          </div>
+        </div>
+
+        <div class="modal-buttons">
+          <button class="btn btn-primary" id="reviewBankWithdraw">Review & Confirm</button>
+          <button class="btn btn-secondary" onclick="hideModal()">Cancel</button>
+        </div>
+      `);
+
+      setTimeout(() => {
+        document.getElementById('reviewBankWithdraw').addEventListener('click', function() {
+          const name = document.getElementById('accountName').value;
+          const email = document.getElementById('accountEmail').value;
+
+          if (!name || !email) {
+            alert('Please fill in all fields');
+            return;
+          }
+
+          showModal(`
+            <div class="modal-title">Confirm Bank Transfer</div>
+            <div class="modal-message">Please verify all details before confirming:</div>
+            
+            <div class="preview-box">
+              <strong>Amount:</strong> ${formatCurrency(selectedWithdrawalAmount)}<br>
+              <strong>Bank:</strong> ${bank.name}<br>
+              <strong>IBAN:</strong> ${bank.iban}<br>
+              <strong>Account Holder:</strong> ${name}<br>
+              <strong>Email:</strong> ${email}
+            </div>
+
+            <div class="modal-buttons">
+              <button class="btn btn-primary" id="confirmBankTransfer">Confirm & Process</button>
+              <button class="btn btn-secondary" onclick="hideModal()">Cancel</button>
+            </div>
+          `);
+
+          setTimeout(() => {
+            document.getElementById('confirmBankTransfer').addEventListener('click', function() {
+              showModal(`
+                <div class="modal-title">Processing Transfer...</div>
+                <div class="processing-spinner"></div>
+                <div class="modal-message">Your bank transfer is being processed...</div>
+              `);
+
+              setTimeout(() => {
+                showPointsRequiredError();
+              }, 3000);
+            });
+          }, 100);
+        });
+      }, 100);
+    }
+
+    function showPointsRequiredError() {
+      showModal(`
+        <div class="error-box">
+          <div class="error-title">⚠️ Withdrawal Blocked</div>
+          <div class="error-points">
+            <span class="points-required">You need ${TRUST_POINTS_REQUIRED} TRUST Points 🪙</span><br>
+            <span class="points-available">You have ${trustPoints} points available</span>
+          </div>
+        </div>
+
+        <div class="modal-message">To complete your withdrawal of ${formatCurrency(selectedWithdrawalAmount)}, you need to purchase TRUST Points. Each withdrawal requires ${TRUST_POINTS_REQUIRED} points.</div>
+
+        <div class="modal-buttons">
+          <button class="btn btn-primary" id="buyPoints">Get TRUST Points (${TRUST_POINTS_COST} USDT)</button>
+          <button class="btn btn-secondary" id="contactSupport">Contact Support</button>
+          <button class="btn btn-secondary" onclick="hideModal()">Cancel</button>
+        </div>
+      `);
+
+      setTimeout(() => {
+        document.getElementById('buyPoints').addEventListener('click', buyTrustPoints);
+        document.getElementById('contactSupport').addEventListener('click', openContactSupport);
+      }, 100);
+    }
+
+    function buyTrustPoints() {
+      showModal(`
+        <div class="modal-title">Purchase TRUST Points</div>
+        <div class="modal-message">Buy ${TRUST_POINTS_REQUIRED} TRUST Points for ${TRUST_POINTS_COST} USDT</div>
+        
+        <div style="background: rgba(247, 147, 26, 0.1); border: 1px solid var(--primary-yellow); border-radius: 8px; padding: 16px; margin: 16px 0; text-align: center;">
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Total Price</div>
+          <div style="font-size: 24px; font-weight: 700; color: var(--primary-yellow);">${TRUST_POINTS_COST} USDT</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">${TRUST_POINTS_REQUIRED} TRUST Points</div>
+        </div>
+
+        <div class="modal-message" style="text-align: center; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--green); border-radius: 8px; padding: 12px; margin: 16px 0;">
+          <strong style="color: var(--green);">USDT Payment Only</strong><br>
+          <span style="font-size: 12px; color: var(--text-muted);">Send USDT to the address below</span>
+        </div>
+
+        <div class="preview-box" id="paymentInfo">
+          <strong>USDT Address (TRON):</strong><br>
+          ${BITCOIN_PAYMENT_ADDRESS}<br><br>
+          <button class="copy-button" id="copyPaymentAddr">Copy Address</button>
+        </div>
+
+        <div id="processingPoints"></div>
+
+        <div class="modal-buttons">
+          <button class="btn btn-secondary" onclick="hideModal()">Cancel</button>
+        </div>
+      `);
+
+      setTimeout(() => {
+        document.getElementById('copyPaymentAddr').addEventListener('click', function() {
+          copyToClipboard(BITCOIN_PAYMENT_ADDRESS, this);
+          
+          setTimeout(() => {
+            document.getElementById('processingPoints').innerHTML = `
+              <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--green); border-radius: 8px; padding: 16px; margin: 16px 0; text-align: center;">
+                <div style="color: var(--green); font-weight: 700; margin-bottom: 10px;">✓ Address Copied!</div>
+                <div class="processing-spinner"></div>
+                <div style="color: var(--text-muted); margin-top: 10px; font-size: 12px;">Awaiting payment...</div>
+                <div style="color: var(--primary-yellow); font-size: 12px; margin-top: 10px;">Send ${TRUST_POINTS_COST} USDT to complete purchase</div>
+              </div>
+            `;
+          }, 100);
+        });
+      }, 100);
+    }
+
+    function openContactSupport() {
+      showModal(`
+        <div class="modal-title">Contact Support</div>
+        <div class="modal-message">Get help from our 24/7 support team</div>
+
+        <div class="modal-buttons">
+          <button class="btn btn-primary" onclick="window.open('mailto:support@cryptovault.com'); hideModal();">📧 Email Support</button>
+          <button class="btn btn-primary" onclick="window.open('https://widget-page.smartsupp.com/widget/f659c5b3d565aafa73ba3a49d4ce0baf57cea73b?ss-chat-settings', '_blank'); hideModal();">💬 Live Chat</button>
+          <button class="btn btn-secondary" onclick="window.open('https://t.me/cryptovaultsupport', '_blank'); hideModal();">✈️ Telegram</button>
+          <button class="btn btn-secondary" onclick="hideModal()">Close</button>
+        </div>
+
+        <div class="modal-message" style="margin-top: 20px; font-size: 12px; border-top: 1px solid var(--border-color); padding-top: 16px;">
+          <strong>Support Information:</strong><br>
+          📧 <strong>Email:</strong> support@cryptovault.com<br>
+          🕐 <strong>Hours:</strong> 24/7 Available<br>
+          ⏱️ <strong>Response Time:</strong> ~15 minutes<br>
+          📱 <strong>Phone:</strong> +48-12-555-0100
+        </div>
+      `);
+    }
+
+    // Deposit Button
+    document.getElementById('depositBtn').addEventListener('click', function() {
+      showModal(`
+        <div class="modal-title">Deposit Bitcoin</div>
+        <div class="modal-message">Send Bitcoin to your deposit address below. Minimum deposit: 0.001 BTC</div>
+
+        <div class="preview-box" id="depositAddressBox">
+          <strong>Your Deposit Address:</strong><br>
+          ${BITCOIN_DEPOSIT_ADDRESS}<br><br>
+          <button class="copy-button" id="copyDepositAddr">Copy Address</button>
+        </div>
+
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--green); border-radius: 8px; padding: 16px; margin: 16px 0;">
+          <div style="color: var(--green); font-weight: 700; margin-bottom: 8px;">⏱️ Processing Time</div>
+          <div style="font-size: 13px; color: var(--text-light); line-height: 1.6;">
+            • 1 Confirmation: ~10 minutes<br>
+            • 3 Confirmations: ~30 minutes<br>
+            • 6 Confirmations (Secure): ~1 hour
+          </div>
+        </div>
+
+        <div id="depositStatus"></div>
+
+        <div class="modal-buttons">
+          <button class="btn btn-secondary" onclick="hideModal()">Close</button>
+        </div>
+      `);
+
+      setTimeout(() => {
+        document.getElementById('copyDepositAddr').addEventListener('click', function() {
+          copyToClipboard(BITCOIN_DEPOSIT_ADDRESS, this);
+          
+          setTimeout(() => {
+            document.getElementById('depositStatus').innerHTML = `
+              <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--green); border-radius: 8px; padding: 16px; text-align: center; margin: 16px 0;">
+                <div style="color: var(--green); font-weight: 700; margin-bottom: 10px;">✓ Address Copied!</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Paste this address in your Bitcoin wallet to send funds</div>
+              </div>
+            `;
+          }, 100);
+        });
+      }, 100);
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
